@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package internalapi;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = ".;internalapi";
+
+service Analytics {
+  rpc GetMonthlyActiveUsers(MonthlyActiveUsersRequest) returns (MonthlyActiveUsersResponse);
+}
+
+message MonthlyActiveUsersRequest {
+  string dao_id = 1;
+}
+
+message MonthlyActiveUsers {
+  google.protobuf.Timestamp period_started = 1;
+  uint64 active_users = 2;
+  uint64 new_active_users = 3;
+}
+
+message MonthlyActiveUsersResponse {
+  repeated MonthlyActiveUsers monthly_active_users = 1;
+}
