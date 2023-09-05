@@ -7,5 +7,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+###
+- Voter buckets method
+
 ### Added
 - Protobufs from analytics service
