@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	Analytics_GetMonthlyActiveUsers_FullMethodName = "/internalapi.Analytics/GetMonthlyActiveUsers"
+	Analytics_GetVoterBuckets_FullMethodName       = "/internalapi.Analytics/GetVoterBuckets"
 )
 
 // AnalyticsClient is the client API for Analytics service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AnalyticsClient interface {
 	GetMonthlyActiveUsers(ctx context.Context, in *MonthlyActiveUsersRequest, opts ...grpc.CallOption) (*MonthlyActiveUsersResponse, error)
+	GetVoterBuckets(ctx context.Context, in *VoterBucketsRequest, opts ...grpc.CallOption) (*VoterBucketsResponse, error)
 }
 
 type analyticsClient struct {
@@ -46,11 +48,21 @@ func (c *analyticsClient) GetMonthlyActiveUsers(ctx context.Context, in *Monthly
 	return out, nil
 }
 
+func (c *analyticsClient) GetVoterBuckets(ctx context.Context, in *VoterBucketsRequest, opts ...grpc.CallOption) (*VoterBucketsResponse, error) {
+	out := new(VoterBucketsResponse)
+	err := c.cc.Invoke(ctx, Analytics_GetVoterBuckets_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AnalyticsServer is the server API for Analytics service.
 // All implementations must embed UnimplementedAnalyticsServer
 // for forward compatibility
 type AnalyticsServer interface {
 	GetMonthlyActiveUsers(context.Context, *MonthlyActiveUsersRequest) (*MonthlyActiveUsersResponse, error)
+	GetVoterBuckets(context.Context, *VoterBucketsRequest) (*VoterBucketsResponse, error)
 	mustEmbedUnimplementedAnalyticsServer()
 }
 
@@ -60,6 +72,9 @@ type UnimplementedAnalyticsServer struct {
 
 func (UnimplementedAnalyticsServer) GetMonthlyActiveUsers(context.Context, *MonthlyActiveUsersRequest) (*MonthlyActiveUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMonthlyActiveUsers not implemented")
+}
+func (UnimplementedAnalyticsServer) GetVoterBuckets(context.Context, *VoterBucketsRequest) (*VoterBucketsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetVoterBuckets not implemented")
 }
 func (UnimplementedAnalyticsServer) mustEmbedUnimplementedAnalyticsServer() {}
 
@@ -92,6 +107,24 @@ func _Analytics_GetMonthlyActiveUsers_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Analytics_GetVoterBuckets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VoterBucketsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnalyticsServer).GetVoterBuckets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Analytics_GetVoterBuckets_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnalyticsServer).GetVoterBuckets(ctx, req.(*VoterBucketsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Analytics_ServiceDesc is the grpc.ServiceDesc for Analytics service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -102,6 +135,10 @@ var Analytics_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetMonthlyActiveUsers",
 			Handler:    _Analytics_GetMonthlyActiveUsers_Handler,
+		},
+		{
+			MethodName: "GetVoterBuckets",
+			Handler:    _Analytics_GetVoterBuckets_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

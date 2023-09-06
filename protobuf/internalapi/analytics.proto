@@ -8,6 +8,7 @@ option go_package = ".;internalapi";
 
 service Analytics {
   rpc GetMonthlyActiveUsers(MonthlyActiveUsersRequest) returns (MonthlyActiveUsersResponse);
+  rpc GetVoterBuckets(VoterBucketsRequest) returns (VoterBucketsResponse);
 }
 
 message MonthlyActiveUsersRequest {
@@ -22,4 +23,17 @@ message MonthlyActiveUsers {
 
 message MonthlyActiveUsersResponse {
   repeated MonthlyActiveUsers monthly_active_users = 1;
+}
+
+message VoterBucketsRequest {
+  string dao_id = 1;
+}
+
+message VoterBucketsResponse {
+  repeated VoterGroup groups = 1;
+}
+
+message VoterGroup {
+  string name = 1;
+  uint64 voter_counts = 2;
 }

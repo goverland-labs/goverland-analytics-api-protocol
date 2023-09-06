@@ -178,6 +178,155 @@ func (x *MonthlyActiveUsersResponse) GetMonthlyActiveUsers() []*MonthlyActiveUse
 	return nil
 }
 
+type VoterBucketsRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	DaoId string `protobuf:"bytes,1,opt,name=dao_id,json=daoId,proto3" json:"dao_id,omitempty"`
+}
+
+func (x *VoterBucketsRequest) Reset() {
+	*x = VoterBucketsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_protobuf_internalapi_analytics_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *VoterBucketsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VoterBucketsRequest) ProtoMessage() {}
+
+func (x *VoterBucketsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_protobuf_internalapi_analytics_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VoterBucketsRequest.ProtoReflect.Descriptor instead.
+func (*VoterBucketsRequest) Descriptor() ([]byte, []int) {
+	return file_protobuf_internalapi_analytics_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *VoterBucketsRequest) GetDaoId() string {
+	if x != nil {
+		return x.DaoId
+	}
+	return ""
+}
+
+type VoterBucketsResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Groups []*VoterGroup `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups,omitempty"`
+}
+
+func (x *VoterBucketsResponse) Reset() {
+	*x = VoterBucketsResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_protobuf_internalapi_analytics_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *VoterBucketsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VoterBucketsResponse) ProtoMessage() {}
+
+func (x *VoterBucketsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_protobuf_internalapi_analytics_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VoterBucketsResponse.ProtoReflect.Descriptor instead.
+func (*VoterBucketsResponse) Descriptor() ([]byte, []int) {
+	return file_protobuf_internalapi_analytics_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *VoterBucketsResponse) GetGroups() []*VoterGroup {
+	if x != nil {
+		return x.Groups
+	}
+	return nil
+}
+
+type VoterGroup struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name        string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	VoterCounts uint64 `protobuf:"varint,2,opt,name=voter_counts,json=voterCounts,proto3" json:"voter_counts,omitempty"`
+}
+
+func (x *VoterGroup) Reset() {
+	*x = VoterGroup{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_protobuf_internalapi_analytics_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *VoterGroup) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VoterGroup) ProtoMessage() {}
+
+func (x *VoterGroup) ProtoReflect() protoreflect.Message {
+	mi := &file_protobuf_internalapi_analytics_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VoterGroup.ProtoReflect.Descriptor instead.
+func (*VoterGroup) Descriptor() ([]byte, []int) {
+	return file_protobuf_internalapi_analytics_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *VoterGroup) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *VoterGroup) GetVoterCounts() uint64 {
+	if x != nil {
+		return x.VoterCounts
+	}
+	return 0
+}
+
 var File_protobuf_internalapi_analytics_proto protoreflect.FileDescriptor
 
 var file_protobuf_internalapi_analytics_proto_rawDesc = []byte{
@@ -207,15 +356,33 @@ var file_protobuf_internalapi_analytics_proto_rawDesc = []byte{
 	0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x61, 0x70, 0x69, 0x2e, 0x4d, 0x6f, 0x6e, 0x74, 0x68, 0x6c,
 	0x79, 0x41, 0x63, 0x74, 0x69, 0x76, 0x65, 0x55, 0x73, 0x65, 0x72, 0x73, 0x52, 0x12, 0x6d, 0x6f,
 	0x6e, 0x74, 0x68, 0x6c, 0x79, 0x41, 0x63, 0x74, 0x69, 0x76, 0x65, 0x55, 0x73, 0x65, 0x72, 0x73,
-	0x32, 0x75, 0x0a, 0x09, 0x41, 0x6e, 0x61, 0x6c, 0x79, 0x74, 0x69, 0x63, 0x73, 0x12, 0x68, 0x0a,
-	0x15, 0x47, 0x65, 0x74, 0x4d, 0x6f, 0x6e, 0x74, 0x68, 0x6c, 0x79, 0x41, 0x63, 0x74, 0x69, 0x76,
-	0x65, 0x55, 0x73, 0x65, 0x72, 0x73, 0x12, 0x26, 0x2e, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61,
-	0x6c, 0x61, 0x70, 0x69, 0x2e, 0x4d, 0x6f, 0x6e, 0x74, 0x68, 0x6c, 0x79, 0x41, 0x63, 0x74, 0x69,
-	0x76, 0x65, 0x55, 0x73, 0x65, 0x72, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x27,
-	0x2e, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x61, 0x70, 0x69, 0x2e, 0x4d, 0x6f, 0x6e,
-	0x74, 0x68, 0x6c, 0x79, 0x41, 0x63, 0x74, 0x69, 0x76, 0x65, 0x55, 0x73, 0x65, 0x72, 0x73, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x0f, 0x5a, 0x0d, 0x2e, 0x3b, 0x69, 0x6e, 0x74,
-	0x65, 0x72, 0x6e, 0x61, 0x6c, 0x61, 0x70, 0x69, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x22, 0x2c, 0x0a, 0x13, 0x56, 0x6f, 0x74, 0x65, 0x72, 0x42, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x73,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x15, 0x0a, 0x06, 0x64, 0x61, 0x6f, 0x5f, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x64, 0x61, 0x6f, 0x49, 0x64, 0x22, 0x47,
+	0x0a, 0x14, 0x56, 0x6f, 0x74, 0x65, 0x72, 0x42, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x73, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2f, 0x0a, 0x06, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x73,
+	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61,
+	0x6c, 0x61, 0x70, 0x69, 0x2e, 0x56, 0x6f, 0x74, 0x65, 0x72, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52,
+	0x06, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x22, 0x43, 0x0a, 0x0a, 0x56, 0x6f, 0x74, 0x65, 0x72,
+	0x47, 0x72, 0x6f, 0x75, 0x70, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x21, 0x0a, 0x0c, 0x76, 0x6f, 0x74,
+	0x65, 0x72, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52,
+	0x0b, 0x76, 0x6f, 0x74, 0x65, 0x72, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x73, 0x32, 0xcd, 0x01, 0x0a,
+	0x09, 0x41, 0x6e, 0x61, 0x6c, 0x79, 0x74, 0x69, 0x63, 0x73, 0x12, 0x68, 0x0a, 0x15, 0x47, 0x65,
+	0x74, 0x4d, 0x6f, 0x6e, 0x74, 0x68, 0x6c, 0x79, 0x41, 0x63, 0x74, 0x69, 0x76, 0x65, 0x55, 0x73,
+	0x65, 0x72, 0x73, 0x12, 0x26, 0x2e, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x61, 0x70,
+	0x69, 0x2e, 0x4d, 0x6f, 0x6e, 0x74, 0x68, 0x6c, 0x79, 0x41, 0x63, 0x74, 0x69, 0x76, 0x65, 0x55,
+	0x73, 0x65, 0x72, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x27, 0x2e, 0x69, 0x6e,
+	0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x61, 0x70, 0x69, 0x2e, 0x4d, 0x6f, 0x6e, 0x74, 0x68, 0x6c,
+	0x79, 0x41, 0x63, 0x74, 0x69, 0x76, 0x65, 0x55, 0x73, 0x65, 0x72, 0x73, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x56, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x56, 0x6f, 0x74, 0x65, 0x72,
+	0x42, 0x75, 0x63, 0x6b, 0x65, 0x74, 0x73, 0x12, 0x20, 0x2e, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e,
+	0x61, 0x6c, 0x61, 0x70, 0x69, 0x2e, 0x56, 0x6f, 0x74, 0x65, 0x72, 0x42, 0x75, 0x63, 0x6b, 0x65,
+	0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x21, 0x2e, 0x69, 0x6e, 0x74, 0x65,
+	0x72, 0x6e, 0x61, 0x6c, 0x61, 0x70, 0x69, 0x2e, 0x56, 0x6f, 0x74, 0x65, 0x72, 0x42, 0x75, 0x63,
+	0x6b, 0x65, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x0f, 0x5a, 0x0d,
+	0x2e, 0x3b, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x61, 0x70, 0x69, 0x62, 0x06, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -230,23 +397,29 @@ func file_protobuf_internalapi_analytics_proto_rawDescGZIP() []byte {
 	return file_protobuf_internalapi_analytics_proto_rawDescData
 }
 
-var file_protobuf_internalapi_analytics_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_protobuf_internalapi_analytics_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_protobuf_internalapi_analytics_proto_goTypes = []interface{}{
 	(*MonthlyActiveUsersRequest)(nil),  // 0: internalapi.MonthlyActiveUsersRequest
 	(*MonthlyActiveUsers)(nil),         // 1: internalapi.MonthlyActiveUsers
 	(*MonthlyActiveUsersResponse)(nil), // 2: internalapi.MonthlyActiveUsersResponse
-	(*timestamppb.Timestamp)(nil),      // 3: google.protobuf.Timestamp
+	(*VoterBucketsRequest)(nil),        // 3: internalapi.VoterBucketsRequest
+	(*VoterBucketsResponse)(nil),       // 4: internalapi.VoterBucketsResponse
+	(*VoterGroup)(nil),                 // 5: internalapi.VoterGroup
+	(*timestamppb.Timestamp)(nil),      // 6: google.protobuf.Timestamp
 }
 var file_protobuf_internalapi_analytics_proto_depIdxs = []int32{
-	3, // 0: internalapi.MonthlyActiveUsers.period_started:type_name -> google.protobuf.Timestamp
+	6, // 0: internalapi.MonthlyActiveUsers.period_started:type_name -> google.protobuf.Timestamp
 	1, // 1: internalapi.MonthlyActiveUsersResponse.monthly_active_users:type_name -> internalapi.MonthlyActiveUsers
-	0, // 2: internalapi.Analytics.GetMonthlyActiveUsers:input_type -> internalapi.MonthlyActiveUsersRequest
-	2, // 3: internalapi.Analytics.GetMonthlyActiveUsers:output_type -> internalapi.MonthlyActiveUsersResponse
-	3, // [3:4] is the sub-list for method output_type
-	2, // [2:3] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	5, // 2: internalapi.VoterBucketsResponse.groups:type_name -> internalapi.VoterGroup
+	0, // 3: internalapi.Analytics.GetMonthlyActiveUsers:input_type -> internalapi.MonthlyActiveUsersRequest
+	3, // 4: internalapi.Analytics.GetVoterBuckets:input_type -> internalapi.VoterBucketsRequest
+	2, // 5: internalapi.Analytics.GetMonthlyActiveUsers:output_type -> internalapi.MonthlyActiveUsersResponse
+	4, // 6: internalapi.Analytics.GetVoterBuckets:output_type -> internalapi.VoterBucketsResponse
+	5, // [5:7] is the sub-list for method output_type
+	3, // [3:5] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_protobuf_internalapi_analytics_proto_init() }
@@ -291,6 +464,42 @@ func file_protobuf_internalapi_analytics_proto_init() {
 				return nil
 			}
 		}
+		file_protobuf_internalapi_analytics_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*VoterBucketsRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_protobuf_internalapi_analytics_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*VoterBucketsResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_protobuf_internalapi_analytics_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*VoterGroup); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -298,7 +507,7 @@ func file_protobuf_internalapi_analytics_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_protobuf_internalapi_analytics_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
