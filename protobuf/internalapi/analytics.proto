@@ -30,5 +30,10 @@ message VoterBucketsRequest {
 }
 
 message VoterBucketsResponse {
-  repeated uint64 buckets = 1;
+  repeated VoterGroup groups = 1;
+}
+
+message VoterGroup {
+  string name = 1;
+  uint64 voter_counts = 2;
 }
