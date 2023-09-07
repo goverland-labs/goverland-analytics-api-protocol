@@ -34,6 +34,6 @@ message VoterBucketsResponse {
 }
 
 message VoterGroup {
-  uint64 min_votes = 1;
+  string votes = 1;
   uint64 voters = 2;
 }
