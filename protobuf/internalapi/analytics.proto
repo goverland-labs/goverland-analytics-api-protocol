@@ -9,6 +9,8 @@ option go_package = ".;internalapi";
 service Analytics {
   rpc GetMonthlyActiveUsers(MonthlyActiveUsersRequest) returns (MonthlyActiveUsersResponse);
   rpc GetVoterBuckets(VoterBucketsRequest) returns (VoterBucketsResponse);
+  rpc GetExclusiveVoters(ExclusiveVotersRequest) returns (ExclusiveVotersResponse);
+  rpc GetMonthlyNewProposals(MonthlyNewProposalsRequest) returns (MonthlyNewProposalsResponse);
 }
 
 message MonthlyActiveUsersRequest {
@@ -36,4 +38,26 @@ message VoterBucketsResponse {
 message VoterGroup {
   string votes = 1;
   uint64 voters = 2;
+}
+
+message ExclusiveVotersRequest {
+  string dao_id = 1;
+}
+
+message ExclusiveVotersResponse {
+  uint32 count = 1;
+  uint32 percent = 2;
+}
+
+message MonthlyNewProposalsRequest {
+  string dao_id = 1;
+}
+
+message ProposalsByMonth {
+  google.protobuf.Timestamp period_started = 1;
+  uint64 proposals_count = 2;
+}
+
+message MonthlyNewProposalsResponse {
+  repeated ProposalsByMonth proposals_by_month = 1;
 }
