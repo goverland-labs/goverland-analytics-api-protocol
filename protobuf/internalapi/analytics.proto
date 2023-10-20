@@ -11,6 +11,7 @@ service Analytics {
   rpc GetVoterBuckets(VoterBucketsRequest) returns (VoterBucketsResponse);
   rpc GetExclusiveVoters(ExclusiveVotersRequest) returns (ExclusiveVotersResponse);
   rpc GetMonthlyNewProposals(MonthlyNewProposalsRequest) returns (MonthlyNewProposalsResponse);
+  rpc GetPercentSucceededProposals(PercentSucceededProposalsRequest) returns (PercentSucceededProposalsResponse);
 }
 
 message MonthlyActiveUsersRequest {
@@ -60,4 +61,12 @@ message ProposalsByMonth {
 
 message MonthlyNewProposalsResponse {
   repeated ProposalsByMonth proposals_by_month = 1;
+}
+
+message PercentSucceededProposalsRequest {
+  string dao_id = 1;
+}
+
+message PercentSucceededProposalsResponse {
+  uint32 percent = 1;
 }
