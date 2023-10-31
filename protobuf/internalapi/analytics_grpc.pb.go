@@ -19,11 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Analytics_GetMonthlyActiveUsers_FullMethodName        = "/internalapi.Analytics/GetMonthlyActiveUsers"
-	Analytics_GetVoterBuckets_FullMethodName              = "/internalapi.Analytics/GetVoterBuckets"
-	Analytics_GetExclusiveVoters_FullMethodName           = "/internalapi.Analytics/GetExclusiveVoters"
-	Analytics_GetMonthlyNewProposals_FullMethodName       = "/internalapi.Analytics/GetMonthlyNewProposals"
-	Analytics_GetPercentSucceededProposals_FullMethodName = "/internalapi.Analytics/GetPercentSucceededProposals"
+	Analytics_GetMonthlyActiveUsers_FullMethodName      = "/internalapi.Analytics/GetMonthlyActiveUsers"
+	Analytics_GetVoterBuckets_FullMethodName            = "/internalapi.Analytics/GetVoterBuckets"
+	Analytics_GetExclusiveVoters_FullMethodName         = "/internalapi.Analytics/GetExclusiveVoters"
+	Analytics_GetMonthlyNewProposals_FullMethodName     = "/internalapi.Analytics/GetMonthlyNewProposals"
+	Analytics_GetSucceededProposalsCount_FullMethodName = "/internalapi.Analytics/GetSucceededProposalsCount"
+	Analytics_GetDaosVotersParticipateIn_FullMethodName = "/internalapi.Analytics/GetDaosVotersParticipateIn"
+	Analytics_GetTopVotersByVp_FullMethodName           = "/internalapi.Analytics/GetTopVotersByVp"
 )
 
 // AnalyticsClient is the client API for Analytics service.
@@ -34,7 +36,9 @@ type AnalyticsClient interface {
 	GetVoterBuckets(ctx context.Context, in *VoterBucketsRequest, opts ...grpc.CallOption) (*VoterBucketsResponse, error)
 	GetExclusiveVoters(ctx context.Context, in *ExclusiveVotersRequest, opts ...grpc.CallOption) (*ExclusiveVotersResponse, error)
 	GetMonthlyNewProposals(ctx context.Context, in *MonthlyNewProposalsRequest, opts ...grpc.CallOption) (*MonthlyNewProposalsResponse, error)
-	GetPercentSucceededProposals(ctx context.Context, in *PercentSucceededProposalsRequest, opts ...grpc.CallOption) (*PercentSucceededProposalsResponse, error)
+	GetSucceededProposalsCount(ctx context.Context, in *SucceededProposalsCountRequest, opts ...grpc.CallOption) (*SucceededProposalsCountResponse, error)
+	GetDaosVotersParticipateIn(ctx context.Context, in *DaosVotersParticipateInRequest, opts ...grpc.CallOption) (*DaosVotersParticipateInResponse, error)
+	GetTopVotersByVp(ctx context.Context, in *TopVotersByVpRequest, opts ...grpc.CallOption) (*TopVotersByVpResponse, error)
 }
 
 type analyticsClient struct {
@@ -81,9 +85,27 @@ func (c *analyticsClient) GetMonthlyNewProposals(ctx context.Context, in *Monthl
 	return out, nil
 }
 
-func (c *analyticsClient) GetPercentSucceededProposals(ctx context.Context, in *PercentSucceededProposalsRequest, opts ...grpc.CallOption) (*PercentSucceededProposalsResponse, error) {
-	out := new(PercentSucceededProposalsResponse)
-	err := c.cc.Invoke(ctx, Analytics_GetPercentSucceededProposals_FullMethodName, in, out, opts...)
+func (c *analyticsClient) GetSucceededProposalsCount(ctx context.Context, in *SucceededProposalsCountRequest, opts ...grpc.CallOption) (*SucceededProposalsCountResponse, error) {
+	out := new(SucceededProposalsCountResponse)
+	err := c.cc.Invoke(ctx, Analytics_GetSucceededProposalsCount_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *analyticsClient) GetDaosVotersParticipateIn(ctx context.Context, in *DaosVotersParticipateInRequest, opts ...grpc.CallOption) (*DaosVotersParticipateInResponse, error) {
+	out := new(DaosVotersParticipateInResponse)
+	err := c.cc.Invoke(ctx, Analytics_GetDaosVotersParticipateIn_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *analyticsClient) GetTopVotersByVp(ctx context.Context, in *TopVotersByVpRequest, opts ...grpc.CallOption) (*TopVotersByVpResponse, error) {
+	out := new(TopVotersByVpResponse)
+	err := c.cc.Invoke(ctx, Analytics_GetTopVotersByVp_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -98,7 +120,9 @@ type AnalyticsServer interface {
 	GetVoterBuckets(context.Context, *VoterBucketsRequest) (*VoterBucketsResponse, error)
 	GetExclusiveVoters(context.Context, *ExclusiveVotersRequest) (*ExclusiveVotersResponse, error)
 	GetMonthlyNewProposals(context.Context, *MonthlyNewProposalsRequest) (*MonthlyNewProposalsResponse, error)
-	GetPercentSucceededProposals(context.Context, *PercentSucceededProposalsRequest) (*PercentSucceededProposalsResponse, error)
+	GetSucceededProposalsCount(context.Context, *SucceededProposalsCountRequest) (*SucceededProposalsCountResponse, error)
+	GetDaosVotersParticipateIn(context.Context, *DaosVotersParticipateInRequest) (*DaosVotersParticipateInResponse, error)
+	GetTopVotersByVp(context.Context, *TopVotersByVpRequest) (*TopVotersByVpResponse, error)
 	mustEmbedUnimplementedAnalyticsServer()
 }
 
@@ -118,8 +142,14 @@ func (UnimplementedAnalyticsServer) GetExclusiveVoters(context.Context, *Exclusi
 func (UnimplementedAnalyticsServer) GetMonthlyNewProposals(context.Context, *MonthlyNewProposalsRequest) (*MonthlyNewProposalsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMonthlyNewProposals not implemented")
 }
-func (UnimplementedAnalyticsServer) GetPercentSucceededProposals(context.Context, *PercentSucceededProposalsRequest) (*PercentSucceededProposalsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetPercentSucceededProposals not implemented")
+func (UnimplementedAnalyticsServer) GetSucceededProposalsCount(context.Context, *SucceededProposalsCountRequest) (*SucceededProposalsCountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSucceededProposalsCount not implemented")
+}
+func (UnimplementedAnalyticsServer) GetDaosVotersParticipateIn(context.Context, *DaosVotersParticipateInRequest) (*DaosVotersParticipateInResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDaosVotersParticipateIn not implemented")
+}
+func (UnimplementedAnalyticsServer) GetTopVotersByVp(context.Context, *TopVotersByVpRequest) (*TopVotersByVpResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTopVotersByVp not implemented")
 }
 func (UnimplementedAnalyticsServer) mustEmbedUnimplementedAnalyticsServer() {}
 
@@ -206,20 +236,56 @@ func _Analytics_GetMonthlyNewProposals_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Analytics_GetPercentSucceededProposals_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PercentSucceededProposalsRequest)
+func _Analytics_GetSucceededProposalsCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SucceededProposalsCountRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AnalyticsServer).GetPercentSucceededProposals(ctx, in)
+		return srv.(AnalyticsServer).GetSucceededProposalsCount(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Analytics_GetPercentSucceededProposals_FullMethodName,
+		FullMethod: Analytics_GetSucceededProposalsCount_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AnalyticsServer).GetPercentSucceededProposals(ctx, req.(*PercentSucceededProposalsRequest))
+		return srv.(AnalyticsServer).GetSucceededProposalsCount(ctx, req.(*SucceededProposalsCountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Analytics_GetDaosVotersParticipateIn_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DaosVotersParticipateInRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnalyticsServer).GetDaosVotersParticipateIn(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Analytics_GetDaosVotersParticipateIn_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnalyticsServer).GetDaosVotersParticipateIn(ctx, req.(*DaosVotersParticipateInRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Analytics_GetTopVotersByVp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TopVotersByVpRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnalyticsServer).GetTopVotersByVp(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Analytics_GetTopVotersByVp_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnalyticsServer).GetTopVotersByVp(ctx, req.(*TopVotersByVpRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -248,8 +314,16 @@ var Analytics_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Analytics_GetMonthlyNewProposals_Handler,
 		},
 		{
-			MethodName: "GetPercentSucceededProposals",
-			Handler:    _Analytics_GetPercentSucceededProposals_Handler,
+			MethodName: "GetSucceededProposalsCount",
+			Handler:    _Analytics_GetSucceededProposalsCount_Handler,
+		},
+		{
+			MethodName: "GetDaosVotersParticipateIn",
+			Handler:    _Analytics_GetDaosVotersParticipateIn_Handler,
+		},
+		{
+			MethodName: "GetTopVotersByVp",
+			Handler:    _Analytics_GetTopVotersByVp_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

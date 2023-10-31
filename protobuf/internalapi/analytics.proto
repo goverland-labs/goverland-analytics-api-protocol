@@ -11,7 +11,9 @@ service Analytics {
   rpc GetVoterBuckets(VoterBucketsRequest) returns (VoterBucketsResponse);
   rpc GetExclusiveVoters(ExclusiveVotersRequest) returns (ExclusiveVotersResponse);
   rpc GetMonthlyNewProposals(MonthlyNewProposalsRequest) returns (MonthlyNewProposalsResponse);
-  rpc GetPercentSucceededProposals(PercentSucceededProposalsRequest) returns (PercentSucceededProposalsResponse);
+  rpc GetSucceededProposalsCount(SucceededProposalsCountRequest) returns (SucceededProposalsCountResponse);
+  rpc GetDaosVotersParticipateIn(DaosVotersParticipateInRequest) returns (DaosVotersParticipateInResponse);
+  rpc GetTopVotersByVp(TopVotersByVpRequest) returns (TopVotersByVpResponse);
 }
 
 message MonthlyActiveUsersRequest {
@@ -63,10 +65,41 @@ message MonthlyNewProposalsResponse {
   repeated ProposalsByMonth proposals_by_month = 1;
 }
 
-message PercentSucceededProposalsRequest {
+message SucceededProposalsCountRequest {
   string dao_id = 1;
 }
 
-message PercentSucceededProposalsResponse {
-  uint32 percent = 1;
+message SucceededProposalsCountResponse {
+  uint32 succeeded = 1;
+  uint32 finished = 2;
+}
+
+message DaosVotersParticipateInRequest {
+  string dao_id = 1;
+  uint64 limit = 2;
+}
+
+message DaosVotersParticipateInResponse {
+  repeated DaoVotersParticipateIn dao_voters_participate_in = 1;
+}
+
+message DaoVotersParticipateIn {
+  string dao_id = 1;
+  uint32 voters_count = 2;
+  float percent_voters = 3;
+}
+
+message TopVotersByVpRequest {
+  string dao_id = 1;
+  uint64 limit = 2;
+}
+
+message TopVotersByVpResponse {
+  repeated VoterWithVp voter_with_vp = 1;
+}
+
+message VoterWithVp {
+  string voter = 1;
+  float vp_avg = 2;
+  uint32 votes_count = 3;
 }
