@@ -48,8 +48,8 @@ message ExclusiveVotersRequest {
 }
 
 message ExclusiveVotersResponse {
-  uint32 count = 1;
-  uint32 percent = 2;
+  uint32 exclusive = 1;
+  uint32 total = 2;
 }
 
 message MonthlyNewProposalsRequest {
