@@ -14,6 +14,8 @@ service Analytics {
   rpc GetSucceededProposalsCount(SucceededProposalsCountRequest) returns (SucceededProposalsCountResponse);
   rpc GetDaosVotersParticipateIn(DaosVotersParticipateInRequest) returns (DaosVotersParticipateInResponse);
   rpc GetTopVotersByVp(TopVotersByVpRequest) returns (TopVotersByVpResponse);
+  rpc GetTotalsForLastPeriods(TotalsForLastPeriodsRequest) returns (TotalsForLastPeriodsResponse);
+  rpc GetMonthlyActive(MonthlyActiveRequest) returns (MonthlyActiveResponse);
 }
 
 message MonthlyActiveUsersRequest {
@@ -102,4 +104,41 @@ message VoterWithVp {
   string voter = 1;
   float vp_avg = 2;
   uint32 votes_count = 3;
+}
+
+message TotalsForLastPeriodsRequest {
+  uint32 period_in_days = 1;
+}
+
+message TotalsForLastPeriodsResponse {
+  Totals daos = 1;
+  Totals proposals = 2;
+  Totals voters = 3;
+  Totals votes = 4;
+}
+
+message Totals {
+  uint64 current_period_total = 1;
+  uint64 previous_period_total = 2;
+}
+
+message MonthlyActiveRequest {
+  ObjectType type = 1;
+}
+
+message MonthlyActiveResponse {
+  repeated TotalsByMonth totals_by_month = 1;
+}
+
+enum ObjectType {
+  OBJECT_TYPE_UNSPECIFIED = 0;
+  OBJECT_TYPE_DAO = 1;
+  OBJECT_TYPE_PROPOSAL = 2;
+  OBJECT_TYPE_VOTER = 3;
+}
+
+message TotalsByMonth {
+  google.protobuf.Timestamp period_started = 1;
+  uint64 total = 2;
+  uint64 new_objects_total = 3;
 }

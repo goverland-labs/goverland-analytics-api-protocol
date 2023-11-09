@@ -26,6 +26,8 @@ const (
 	Analytics_GetSucceededProposalsCount_FullMethodName = "/internalapi.Analytics/GetSucceededProposalsCount"
 	Analytics_GetDaosVotersParticipateIn_FullMethodName = "/internalapi.Analytics/GetDaosVotersParticipateIn"
 	Analytics_GetTopVotersByVp_FullMethodName           = "/internalapi.Analytics/GetTopVotersByVp"
+	Analytics_GetTotalsForLastPeriods_FullMethodName    = "/internalapi.Analytics/GetTotalsForLastPeriods"
+	Analytics_GetMonthlyActive_FullMethodName           = "/internalapi.Analytics/GetMonthlyActive"
 )
 
 // AnalyticsClient is the client API for Analytics service.
@@ -39,6 +41,8 @@ type AnalyticsClient interface {
 	GetSucceededProposalsCount(ctx context.Context, in *SucceededProposalsCountRequest, opts ...grpc.CallOption) (*SucceededProposalsCountResponse, error)
 	GetDaosVotersParticipateIn(ctx context.Context, in *DaosVotersParticipateInRequest, opts ...grpc.CallOption) (*DaosVotersParticipateInResponse, error)
 	GetTopVotersByVp(ctx context.Context, in *TopVotersByVpRequest, opts ...grpc.CallOption) (*TopVotersByVpResponse, error)
+	GetTotalsForLastPeriods(ctx context.Context, in *TotalsForLastPeriodsRequest, opts ...grpc.CallOption) (*TotalsForLastPeriodsResponse, error)
+	GetMonthlyActive(ctx context.Context, in *MonthlyActiveRequest, opts ...grpc.CallOption) (*MonthlyActiveResponse, error)
 }
 
 type analyticsClient struct {
@@ -112,6 +116,24 @@ func (c *analyticsClient) GetTopVotersByVp(ctx context.Context, in *TopVotersByV
 	return out, nil
 }
 
+func (c *analyticsClient) GetTotalsForLastPeriods(ctx context.Context, in *TotalsForLastPeriodsRequest, opts ...grpc.CallOption) (*TotalsForLastPeriodsResponse, error) {
+	out := new(TotalsForLastPeriodsResponse)
+	err := c.cc.Invoke(ctx, Analytics_GetTotalsForLastPeriods_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *analyticsClient) GetMonthlyActive(ctx context.Context, in *MonthlyActiveRequest, opts ...grpc.CallOption) (*MonthlyActiveResponse, error) {
+	out := new(MonthlyActiveResponse)
+	err := c.cc.Invoke(ctx, Analytics_GetMonthlyActive_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AnalyticsServer is the server API for Analytics service.
 // All implementations must embed UnimplementedAnalyticsServer
 // for forward compatibility
@@ -123,6 +145,8 @@ type AnalyticsServer interface {
 	GetSucceededProposalsCount(context.Context, *SucceededProposalsCountRequest) (*SucceededProposalsCountResponse, error)
 	GetDaosVotersParticipateIn(context.Context, *DaosVotersParticipateInRequest) (*DaosVotersParticipateInResponse, error)
 	GetTopVotersByVp(context.Context, *TopVotersByVpRequest) (*TopVotersByVpResponse, error)
+	GetTotalsForLastPeriods(context.Context, *TotalsForLastPeriodsRequest) (*TotalsForLastPeriodsResponse, error)
+	GetMonthlyActive(context.Context, *MonthlyActiveRequest) (*MonthlyActiveResponse, error)
 	mustEmbedUnimplementedAnalyticsServer()
 }
 
@@ -150,6 +174,12 @@ func (UnimplementedAnalyticsServer) GetDaosVotersParticipateIn(context.Context, 
 }
 func (UnimplementedAnalyticsServer) GetTopVotersByVp(context.Context, *TopVotersByVpRequest) (*TopVotersByVpResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTopVotersByVp not implemented")
+}
+func (UnimplementedAnalyticsServer) GetTotalsForLastPeriods(context.Context, *TotalsForLastPeriodsRequest) (*TotalsForLastPeriodsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTotalsForLastPeriods not implemented")
+}
+func (UnimplementedAnalyticsServer) GetMonthlyActive(context.Context, *MonthlyActiveRequest) (*MonthlyActiveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMonthlyActive not implemented")
 }
 func (UnimplementedAnalyticsServer) mustEmbedUnimplementedAnalyticsServer() {}
 
@@ -290,6 +320,42 @@ func _Analytics_GetTopVotersByVp_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Analytics_GetTotalsForLastPeriods_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TotalsForLastPeriodsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnalyticsServer).GetTotalsForLastPeriods(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Analytics_GetTotalsForLastPeriods_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnalyticsServer).GetTotalsForLastPeriods(ctx, req.(*TotalsForLastPeriodsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Analytics_GetMonthlyActive_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MonthlyActiveRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnalyticsServer).GetMonthlyActive(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Analytics_GetMonthlyActive_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnalyticsServer).GetMonthlyActive(ctx, req.(*MonthlyActiveRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Analytics_ServiceDesc is the grpc.ServiceDesc for Analytics service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -324,6 +390,14 @@ var Analytics_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTopVotersByVp",
 			Handler:    _Analytics_GetTopVotersByVp_Handler,
+		},
+		{
+			MethodName: "GetTotalsForLastPeriods",
+			Handler:    _Analytics_GetTotalsForLastPeriods_Handler,
+		},
+		{
+			MethodName: "GetMonthlyActive",
+			Handler:    _Analytics_GetMonthlyActive_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
