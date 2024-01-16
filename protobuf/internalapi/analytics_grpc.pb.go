@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	Analytics_GetMonthlyActiveUsers_FullMethodName      = "/internalapi.Analytics/GetMonthlyActiveUsers"
 	Analytics_GetVoterBuckets_FullMethodName            = "/internalapi.Analytics/GetVoterBuckets"
+	Analytics_GetVoterBucketsV2_FullMethodName          = "/internalapi.Analytics/GetVoterBucketsV2"
 	Analytics_GetExclusiveVoters_FullMethodName         = "/internalapi.Analytics/GetExclusiveVoters"
 	Analytics_GetMonthlyNewProposals_FullMethodName     = "/internalapi.Analytics/GetMonthlyNewProposals"
 	Analytics_GetSucceededProposalsCount_FullMethodName = "/internalapi.Analytics/GetSucceededProposalsCount"
@@ -36,6 +37,7 @@ const (
 type AnalyticsClient interface {
 	GetMonthlyActiveUsers(ctx context.Context, in *MonthlyActiveUsersRequest, opts ...grpc.CallOption) (*MonthlyActiveUsersResponse, error)
 	GetVoterBuckets(ctx context.Context, in *VoterBucketsRequest, opts ...grpc.CallOption) (*VoterBucketsResponse, error)
+	GetVoterBucketsV2(ctx context.Context, in *VoterBucketsRequestV2, opts ...grpc.CallOption) (*VoterBucketsResponse, error)
 	GetExclusiveVoters(ctx context.Context, in *ExclusiveVotersRequest, opts ...grpc.CallOption) (*ExclusiveVotersResponse, error)
 	GetMonthlyNewProposals(ctx context.Context, in *MonthlyNewProposalsRequest, opts ...grpc.CallOption) (*MonthlyNewProposalsResponse, error)
 	GetSucceededProposalsCount(ctx context.Context, in *SucceededProposalsCountRequest, opts ...grpc.CallOption) (*SucceededProposalsCountResponse, error)
@@ -65,6 +67,15 @@ func (c *analyticsClient) GetMonthlyActiveUsers(ctx context.Context, in *Monthly
 func (c *analyticsClient) GetVoterBuckets(ctx context.Context, in *VoterBucketsRequest, opts ...grpc.CallOption) (*VoterBucketsResponse, error) {
 	out := new(VoterBucketsResponse)
 	err := c.cc.Invoke(ctx, Analytics_GetVoterBuckets_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *analyticsClient) GetVoterBucketsV2(ctx context.Context, in *VoterBucketsRequestV2, opts ...grpc.CallOption) (*VoterBucketsResponse, error) {
+	out := new(VoterBucketsResponse)
+	err := c.cc.Invoke(ctx, Analytics_GetVoterBucketsV2_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -140,6 +151,7 @@ func (c *analyticsClient) GetMonthlyActive(ctx context.Context, in *MonthlyActiv
 type AnalyticsServer interface {
 	GetMonthlyActiveUsers(context.Context, *MonthlyActiveUsersRequest) (*MonthlyActiveUsersResponse, error)
 	GetVoterBuckets(context.Context, *VoterBucketsRequest) (*VoterBucketsResponse, error)
+	GetVoterBucketsV2(context.Context, *VoterBucketsRequestV2) (*VoterBucketsResponse, error)
 	GetExclusiveVoters(context.Context, *ExclusiveVotersRequest) (*ExclusiveVotersResponse, error)
 	GetMonthlyNewProposals(context.Context, *MonthlyNewProposalsRequest) (*MonthlyNewProposalsResponse, error)
 	GetSucceededProposalsCount(context.Context, *SucceededProposalsCountRequest) (*SucceededProposalsCountResponse, error)
@@ -159,6 +171,9 @@ func (UnimplementedAnalyticsServer) GetMonthlyActiveUsers(context.Context, *Mont
 }
 func (UnimplementedAnalyticsServer) GetVoterBuckets(context.Context, *VoterBucketsRequest) (*VoterBucketsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetVoterBuckets not implemented")
+}
+func (UnimplementedAnalyticsServer) GetVoterBucketsV2(context.Context, *VoterBucketsRequestV2) (*VoterBucketsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetVoterBucketsV2 not implemented")
 }
 func (UnimplementedAnalyticsServer) GetExclusiveVoters(context.Context, *ExclusiveVotersRequest) (*ExclusiveVotersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetExclusiveVoters not implemented")
@@ -226,6 +241,24 @@ func _Analytics_GetVoterBuckets_Handler(srv interface{}, ctx context.Context, de
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AnalyticsServer).GetVoterBuckets(ctx, req.(*VoterBucketsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Analytics_GetVoterBucketsV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VoterBucketsRequestV2)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnalyticsServer).GetVoterBucketsV2(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Analytics_GetVoterBucketsV2_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnalyticsServer).GetVoterBucketsV2(ctx, req.(*VoterBucketsRequestV2))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -370,6 +403,10 @@ var Analytics_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetVoterBuckets",
 			Handler:    _Analytics_GetVoterBuckets_Handler,
+		},
+		{
+			MethodName: "GetVoterBucketsV2",
+			Handler:    _Analytics_GetVoterBucketsV2_Handler,
 		},
 		{
 			MethodName: "GetExclusiveVoters",

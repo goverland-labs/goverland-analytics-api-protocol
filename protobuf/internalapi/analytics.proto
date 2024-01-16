@@ -9,6 +9,7 @@ option go_package = ".;internalapi";
 service Analytics {
   rpc GetMonthlyActiveUsers(MonthlyActiveUsersRequest) returns (MonthlyActiveUsersResponse);
   rpc GetVoterBuckets(VoterBucketsRequest) returns (VoterBucketsResponse);
+  rpc GetVoterBucketsV2(VoterBucketsRequestV2) returns (VoterBucketsResponse);
   rpc GetExclusiveVoters(ExclusiveVotersRequest) returns (ExclusiveVotersResponse);
   rpc GetMonthlyNewProposals(MonthlyNewProposalsRequest) returns (MonthlyNewProposalsResponse);
   rpc GetSucceededProposalsCount(SucceededProposalsCountRequest) returns (SucceededProposalsCountResponse);
@@ -34,6 +35,11 @@ message MonthlyActiveUsersResponse {
 
 message VoterBucketsRequest {
   string dao_id = 1;
+}
+
+message VoterBucketsRequestV2 {
+  string dao_id = 1;
+  repeated uint32 groups = 2;
 }
 
 message VoterBucketsResponse {

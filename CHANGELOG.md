@@ -7,6 +7,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 [Unreleased]
 
+## [0.0.10] - 2024-01-16
+
+### Added
+- Voter buckets V2
+
 ## [0.0.9] - 2023-11-09
 
 ### Added
