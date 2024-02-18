@@ -7,7 +7,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 [Unreleased]
 
-## [0.0.11] - 2024-02-18
+## [0.0.12] - 2024-02-18
 
 ### Added
 - Totals for top voters
