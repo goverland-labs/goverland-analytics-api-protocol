@@ -67,6 +67,7 @@ message MonthlyNewProposalsRequest {
 message ProposalsByMonth {
   google.protobuf.Timestamp period_started = 1;
   uint64 proposals_count = 2;
+  uint64 spam_count = 3;
 }
 
 message MonthlyNewProposalsResponse {
