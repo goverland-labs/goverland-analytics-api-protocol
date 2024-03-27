@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.24.2
-// source: protobuf/internalapi/analytics.proto
+// source: analytics.proto
 
 package internalapi
 
@@ -438,5 +438,5 @@ var Analytics_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "protobuf/internalapi/analytics.proto",
+	Metadata: "analytics.proto",
 }
