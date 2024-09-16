@@ -29,6 +29,7 @@ const (
 	Analytics_GetTopVotersByVp_FullMethodName           = "/internalapi.Analytics/GetTopVotersByVp"
 	Analytics_GetTotalsForLastPeriods_FullMethodName    = "/internalapi.Analytics/GetTotalsForLastPeriods"
 	Analytics_GetMonthlyActive_FullMethodName           = "/internalapi.Analytics/GetMonthlyActive"
+	Analytics_GetAvgVpList_FullMethodName               = "/internalapi.Analytics/GetAvgVpList"
 )
 
 // AnalyticsClient is the client API for Analytics service.
@@ -45,6 +46,7 @@ type AnalyticsClient interface {
 	GetTopVotersByVp(ctx context.Context, in *TopVotersByVpRequest, opts ...grpc.CallOption) (*TopVotersByVpResponse, error)
 	GetTotalsForLastPeriods(ctx context.Context, in *TotalsForLastPeriodsRequest, opts ...grpc.CallOption) (*TotalsForLastPeriodsResponse, error)
 	GetMonthlyActive(ctx context.Context, in *MonthlyActiveRequest, opts ...grpc.CallOption) (*MonthlyActiveResponse, error)
+	GetAvgVpList(ctx context.Context, in *GetAvgVpListRequest, opts ...grpc.CallOption) (*GetAvgVpListResponse, error)
 }
 
 type analyticsClient struct {
@@ -145,6 +147,15 @@ func (c *analyticsClient) GetMonthlyActive(ctx context.Context, in *MonthlyActiv
 	return out, nil
 }
 
+func (c *analyticsClient) GetAvgVpList(ctx context.Context, in *GetAvgVpListRequest, opts ...grpc.CallOption) (*GetAvgVpListResponse, error) {
+	out := new(GetAvgVpListResponse)
+	err := c.cc.Invoke(ctx, Analytics_GetAvgVpList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AnalyticsServer is the server API for Analytics service.
 // All implementations must embed UnimplementedAnalyticsServer
 // for forward compatibility
@@ -159,6 +170,7 @@ type AnalyticsServer interface {
 	GetTopVotersByVp(context.Context, *TopVotersByVpRequest) (*TopVotersByVpResponse, error)
 	GetTotalsForLastPeriods(context.Context, *TotalsForLastPeriodsRequest) (*TotalsForLastPeriodsResponse, error)
 	GetMonthlyActive(context.Context, *MonthlyActiveRequest) (*MonthlyActiveResponse, error)
+	GetAvgVpList(context.Context, *GetAvgVpListRequest) (*GetAvgVpListResponse, error)
 	mustEmbedUnimplementedAnalyticsServer()
 }
 
@@ -195,6 +207,9 @@ func (UnimplementedAnalyticsServer) GetTotalsForLastPeriods(context.Context, *To
 }
 func (UnimplementedAnalyticsServer) GetMonthlyActive(context.Context, *MonthlyActiveRequest) (*MonthlyActiveResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMonthlyActive not implemented")
+}
+func (UnimplementedAnalyticsServer) GetAvgVpList(context.Context, *GetAvgVpListRequest) (*GetAvgVpListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAvgVpList not implemented")
 }
 func (UnimplementedAnalyticsServer) mustEmbedUnimplementedAnalyticsServer() {}
 
@@ -389,6 +404,24 @@ func _Analytics_GetMonthlyActive_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Analytics_GetAvgVpList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAvgVpListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnalyticsServer).GetAvgVpList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Analytics_GetAvgVpList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnalyticsServer).GetAvgVpList(ctx, req.(*GetAvgVpListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Analytics_ServiceDesc is the grpc.ServiceDesc for Analytics service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -435,6 +468,10 @@ var Analytics_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetMonthlyActive",
 			Handler:    _Analytics_GetMonthlyActive_Handler,
+		},
+		{
+			MethodName: "GetAvgVpList",
+			Handler:    _Analytics_GetAvgVpList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

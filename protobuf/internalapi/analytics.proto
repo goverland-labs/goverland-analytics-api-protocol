@@ -17,6 +17,7 @@ service Analytics {
   rpc GetTopVotersByVp(TopVotersByVpRequest) returns (TopVotersByVpResponse);
   rpc GetTotalsForLastPeriods(TotalsForLastPeriodsRequest) returns (TotalsForLastPeriodsResponse);
   rpc GetMonthlyActive(MonthlyActiveRequest) returns (MonthlyActiveResponse);
+  rpc GetAvgVpList(GetAvgVpListRequest) returns (GetAvgVpListResponse);
 }
 
 message MonthlyActiveUsersRequest {
@@ -141,6 +142,14 @@ message MonthlyActiveRequest {
 
 message MonthlyActiveResponse {
   repeated TotalsByMonth totals_by_month = 1;
+}
+
+message GetAvgVpListRequest {
+  string dao_id = 1;
+}
+
+message GetAvgVpListResponse {
+  repeated float avg_vp = 1;
 }
 
 enum ObjectType {
