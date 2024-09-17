@@ -146,6 +146,7 @@ message MonthlyActiveResponse {
 
 message GetAvgVpListRequest {
   string dao_id = 1;
+  uint32 period_in_months = 2;
 }
 
 message GetAvgVpListResponse {
