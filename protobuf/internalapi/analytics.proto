@@ -150,7 +150,10 @@ message GetAvgVpListRequest {
 }
 
 message GetAvgVpListResponse {
-  repeated float avg_vp = 1;
+  float vp_value = 1;
+  uint32 voters_cutted = 2;
+  uint32 voters_total = 3;
+  repeated Bin bins = 4;
 }
 
 enum ObjectType {
@@ -164,4 +167,9 @@ message TotalsByMonth {
   google.protobuf.Timestamp period_started = 1;
   uint64 total = 2;
   uint64 new_objects_total = 3;
+}
+
+message Bin {
+  uint32 upper_bound = 1;
+  uint32 count = 3;
 }
