@@ -7,6 +7,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 [Unreleased]
 
+## [0.0.18] - 2024-09-24
+
+### Changed
+- Bin fields
+
 ## [0.0.17] - 2024-09-24
 
 ### Added

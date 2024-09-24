@@ -170,6 +170,6 @@ message TotalsByMonth {
 }
 
 message Bin {
-  uint32 upper_bound = 1;
-  uint32 count = 3;
+  float upper_bound = 1;
+  uint32 count = 2;
 }
