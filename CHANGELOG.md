@@ -7,6 +7,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 [Unreleased]
 
+## [0.0.19] - 2024-09-26
+
+### Changed
+- Added totals for histogram
+
 ## [0.0.18] - 2024-09-24
 
 ### Changed
