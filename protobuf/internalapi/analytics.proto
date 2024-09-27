@@ -147,6 +147,7 @@ message MonthlyActiveResponse {
 message GetAvgVpListRequest {
   string dao_id = 1;
   uint32 period_in_months = 2;
+  float min_balance = 3;
 }
 
 message GetAvgVpListResponse {
@@ -154,7 +155,8 @@ message GetAvgVpListResponse {
   uint32 voters_cutted = 2;
   uint32 voters_total = 3;
   float avp_total = 4;
-  repeated Bin bins = 5;
+  float avp_total_cutted = 5;
+  repeated Bin bins = 6;
 }
 
 enum ObjectType {
