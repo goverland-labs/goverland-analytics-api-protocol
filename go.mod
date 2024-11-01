@@ -1,6 +1,6 @@
-module github.com/goverland-labs/analytics-api
+module github.com/goverland-labs/goverland-analytics-api-protocol
 
-go 1.20
+go 1.23
 
 require (
 	google.golang.org/grpc v1.55.0
